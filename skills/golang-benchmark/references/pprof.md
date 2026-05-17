@@ -695,6 +695,17 @@ go tool pprof -http=:8080 -base heap-baseline.prof heap-after.prof
 go tool pprof -http=:8080 -no_browser cpu.prof
 ```
 
+The web UI provides:
+
+- **Flamegraph** (most intuitive) — horizontal width proportional to cost; click to zoom into subtrees; inverted flamegraph available (icicle graph)
+- **Graph** — directed call graph with edge weights; nodes and edges sized/colored by cost; interactive zoom and click-to-focus
+- **Top** — same as `top` command but sortable columns, clickable to navigate to source
+- **Source** — annotated source with per-line cost; browsable across all functions
+- **Disassembly** — same as `disasm` but browsable across functions
+- **Peek** — interactive peek view with expandable callers/callees
+
+Default to CLI commands for quick diagnosis — use the web UI when exploring unfamiliar call graphs, comparing profiles visually, or presenting findings to others.
+
 **Symbolization flags:**
 
 ```bash
@@ -720,38 +731,6 @@ go tool pprof -symbolize=demangle=full cpu.prof
 | --- | --- |
 | `PPROF_BINARY_PATH` | Search path for local binaries used in symbolization (default: `$HOME/pprof/binaries`). Set when profiling remote servers where binaries aren't in the default path. |
 | `PPROF_TOOLS` | Directory containing binutils tools (`addr2line`, `nm`, `objdump`). Set when these tools aren't in `$PATH`. |
-
-## Graphical / Web UI
-
-When CLI output is insufficient and you need interactive exploration:
-
-```bash
-# Opens browser with interactive UI
-go tool pprof -http=:8080 cpu.prof
-
-# Specify a different port if 8080 is taken
-go tool pprof -http=:9090 mem.prof
-
-# Open with specific sample type pre-selected
-go tool pprof -http=:8080 -alloc_objects mem.prof
-
-# Open with filters pre-applied
-go tool pprof -http=:8080 -focus=handler cpu.prof
-
-# Compare two profiles — open with -base
-go tool pprof -http=:8080 -base heap-baseline.prof heap-after.prof
-```
-
-The web UI provides:
-
-- **Flamegraph** (most intuitive) — horizontal width proportional to cost; click to zoom into subtrees; inverted flamegraph available (icicle graph)
-- **Graph** — directed call graph with edge weights; nodes and edges sized/colored by cost; interactive zoom and click-to-focus
-- **Top** — same as `top` command but sortable columns, clickable to navigate to source
-- **Source** — annotated source with per-line cost; browsable across all functions
-- **Disassembly** — same as `disasm` but browsable across functions
-- **Peek** — interactive peek view with expandable callers/callees
-
-Default to CLI commands for quick diagnosis — use the web UI when exploring unfamiliar call graphs, comparing profiles visually, or presenting findings to others.
 
 ## Comparing Profiles
 

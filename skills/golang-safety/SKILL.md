@@ -261,6 +261,7 @@ if s, ok := reflect.TypeAssert[string](v); ok {
 - → See `samber/cc-skills-golang@golang-error-handling` skill for nil error interface trap
 - → See `samber/cc-skills-golang@golang-security` skill for security-relevant safety issues (memory safety, integer overflow)
 - → See `samber/cc-skills-golang@golang-troubleshooting` skill for debugging panics and race conditions
+- → See `samber/cc-skills-golang@golang-continuous-integration` skill for automated AI-driven code review in CI using these guidelines
 
 ## Common Mistakes
 
@@ -277,7 +278,3 @@ if s, ok := reflect.TypeAssert[string](v); ok {
 | Returning internal slice/map reference | Callers can mutate your struct's internals through the shared backing array. Return a defensive copy |
 | Multiple `init()` with ordering assumptions | `init()` execution order across files is unspecified. → See `samber/cc-skills-golang@golang-design-patterns` — use explicit constructors |
 | Blocking forever on nil channel | Nil channels block on both send and receive. Always initialize before use |
-
-## Cross-References
-
-- → See `samber/cc-skills-golang@golang-continuous-integration` skill for automated AI-driven code review in CI using these guidelines
